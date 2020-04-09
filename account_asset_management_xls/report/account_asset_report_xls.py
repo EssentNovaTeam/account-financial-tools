@@ -888,7 +888,7 @@ class AssetReportXls(report_xls):
                         period_start_value_cell + '-' +  # noqa: disable F841, report_xls namespace trick
                         period_end_value_cell)
             period_depr_formula = (
-                    period_start_value_cell + '-' + period_end_value_cell)  # noqa: disable F841, report_xls namespace trick
+                    depreciation_base_cell + '-' + period_end_value_cell)  # noqa: disable F841, report_xls namespace trick
             # nova end
             total_depr_formula = depreciation_base_cell \
                 + '-' + fy_end_value_cell
@@ -969,7 +969,7 @@ class AssetReportXls(report_xls):
                                                   period_end_value_pos)
         period_end_value_cell = rowcol_to_cell(row_pos,  # noqa: disable F841, report_xls namespace trick
                                                period_end_value_pos)
-        period_depr_formula = (period_start_total_formula + '-' +  # noqa: disable F841, report_xls namespace trick
+        period_depr_formula = (depreciation_base_cell + '-' +  # noqa: disable F841, report_xls namespace trick
                                period_end_value_cell)
         # nova end
         fy_start_value_cell = rowcol_to_cell(row_pos, fy_start_value_pos)
