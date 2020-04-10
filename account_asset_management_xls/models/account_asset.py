@@ -28,7 +28,7 @@ class AccountAsset(models.Model):
             'depreciation_base', 'salvage_value',
             'fy_start_value', 'period_start', 'fy_depr', 'period_depr',
             'fy_end_value', 'period_end_value', 'fy_end_depr',
-            'period_end_depr', 'method', 'method_number', 'prorata',
+            'method', 'method_number', 'prorata',
         ]
 
     @api.model
