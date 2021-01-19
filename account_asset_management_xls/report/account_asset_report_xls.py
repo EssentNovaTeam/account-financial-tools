@@ -524,11 +524,17 @@ class AssetReportXls(report_xls):
         # Get all new assets in this period
         cr.execute(
             "SELECT id FROM account_asset "
-            "WHERE purchase_date >= %s AND purchase_date <= %s"
-            "AND id IN %s AND type = 'normal' "
+            "WHERE (purchase_date >= %(period_start)s "
+            "   AND purchase_date <= %(period_end)s) "
+            "   OR (date_start >= %(period_start)s "
+            "       AND purchase_date <= %(period_start)s)"
+            "AND id IN %(asset_ids)s AND type = 'normal' "
             "ORDER BY date_start ASC",
-            (self.period_start, self.period_end,
-             tuple(self.asset_ids)))
+            {
+                'period_start': self.period_start,
+                'period_end': self.period_end,
+                'asset_ids': tuple(self.asset_ids)
+            })
         # nova end
         acq_ids = [x[0] for x in cr.fetchall()]
 
@@ -648,12 +654,16 @@ class AssetReportXls(report_xls):
         # nova start: Get all assets between dates
         cr.execute(
             "SELECT id FROM account_asset "
-            "WHERE date_start <= %s"
-            "AND (date_remove IS NULL OR date_remove >= %s) "
-            "AND id IN %s AND type = 'normal' "
+            "WHERE (purchase_date <= %(period_start)s"
+            "   OR date_start <= %(period_start)s)"
+            "AND (date_remove IS NULL OR date_remove >= %(period_end)s) "
+            "AND id IN %(asset_ids)s AND type = 'normal' "
             "ORDER BY date_start ASC",
-            (self.period_start, self.period_end,
-             tuple(self.asset_ids))
+            {
+                'period_start': self.period_start,
+                'period_end': self.period_end,
+                'asset_ids': tuple(self.asset_ids)
+            }
         )
         # nova end
         act_ids = [x[0] for x in cr.fetchall()]
