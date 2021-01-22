@@ -655,7 +655,7 @@ class AssetReportXls(report_xls):
         cr.execute(
             "SELECT id FROM account_asset "
             "WHERE (purchase_date <= %(period_start)s"
-            "   OR date_start <= %(period_start)s)"
+            "   OR date_start <= %(period_end)s)"
             "AND (date_remove IS NULL OR date_remove >= %(period_end)s) "
             "AND id IN %(asset_ids)s AND type = 'normal' "
             "ORDER BY date_start ASC",
